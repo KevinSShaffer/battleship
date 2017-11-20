@@ -14,4 +14,5 @@ public:
 	std::Vector<Shot> getShots() const;
 	bool isHit(const Coordinates) const;
 	void placeShip(const Ship);
+	bool isValidPlacement(Position::Orientation, int, int, int) const;
 };

@@ -17,24 +17,23 @@ int main()
 	Player player(name);
 
 	// have player1 add ships
-	int x, y, length, depth;
-	Position::Orientation orientation;
-
 	for (int i = 0; i < NUM_SHIPS; i++)
 	{
+		int x, y, length, depth;
+		Position::Orientation orientation;
+		Position::Coordinates coordinates;
+
 		do
 		{
 			x = getInput("Enter the x coordinate: ");
 			y = getInput("Enter the y coordinate: ");
+			coordinates = Position::Coordinates(x, y)
 			length = getInput("Enter the length: ");
-			depth = getInput("Enter the dive depth in meters: ");
 			orientation = getOrientation();
-		} while (!isValid(orientation, x, y, length, grid.getRows(), grid.getColumns()));
-
-		Ship ship(Position::Coordinates(x, y), orientation, length, depth);
-		player.placeShip(ship);
+			Ship ship(coordinate, orientation, length, depth);
+		} while (!player.placeShip(ship));
 	}
-	
+
 	// create player2 (AI)
 	// create game
 	// determine who goes first
@@ -59,4 +58,17 @@ int getInput(string question)
 	}
 
 	return value;
+}
+Position::Orientation getOrientation()
+{
+	char letter = '\0';
+	do
+	{
+		cout << "Horizontal (h) or Verical (v) orientation: " << endl;
+		cin >> letter;
+		cin.clear();
+		cin.ignore(256, '\n');
+	} while (!letter || letter != 'h' && letter != 'H' && letter != 'v' && letter != 'V');
+
+	return ((letter == 'h' || letter == 'H') ? Position::HORIZONTAL : Position::VERTICAL);
 }
