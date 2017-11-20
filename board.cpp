@@ -23,6 +23,8 @@ void Board::placeShip(const Ship ship)
 }
 bool Board::isValidPlacement(Position::Orientation orientation, int x, int y, int length) const
 {
+	// check for ship intersections
+
 	int max_x = _grid.getColumns();
 	int may_y = _grid.getRows();
 	length--;

@@ -15,7 +15,7 @@ bool Player::isHit(const Coordinates shot)
 }
 bool Board::placeShip(const Ship ship)
 {
-	if (_myBoard.isValid(ship))
+	if (_myBoard.isValidPlacement(ship))
 	{
 		_myBoard.placeShip(ship);
 		return true;
