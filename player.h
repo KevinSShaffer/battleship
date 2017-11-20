@@ -5,8 +5,8 @@ class Player
 {
 private:
 	std::string _name;
-	Board _shipBoard;
-	Board _shotsBoard;
+	Board _myBoard;
+	Board _theirBoard;
 public:
 	Player(std::string);
 	std::string getName() const;

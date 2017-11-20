@@ -5,6 +5,11 @@
 int main()
 {
 	// create player1
+	std::string name;
+	do
+	{
+		std::cout << "Input your name: " << std::endl;
+	} while (!(std::cin >> name));
 	// have player1 add ships
 	// create player2 (AI)
 	// create game

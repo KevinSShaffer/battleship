@@ -11,5 +11,5 @@ Player::getName() const
 }
 bool Player::isHit(const Coordinates shot)
 {
-	return true; // for testing
+	return _theirBoard.isHit(shot);
 }

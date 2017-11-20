@@ -6,14 +6,12 @@ class Board
 {
 private:
 	std::Vector<Ship> _ships;
-	std::Vector<Coordinates> _incomingShots;
-	std::Vector<Coordinates> _outgoingShots;
+	std::Vector<Shot> _shots;
 	Grid _grid;
 public:
 	Board(int, int);
 	std::Vector<Ship> getShips() const;
-	std::Vector<Shot> getIncomingShots() const;
-	std::Vector<Shot> getOutgoingingShots() const;
+	std::Vector<Shot> getShots() const;
 	bool isHit(const Coordinates) const;
-	void placeShitp(const Ship);
+	void placeShip(const Ship);
 };
