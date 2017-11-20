@@ -11,11 +11,13 @@ private:
 	std::vector<Ship> _ships;
 	std::vector<Shot> _shots;
 	Grid _grid;
+	void markGrid(Ship);
 public:
 	Board();
 	Board(int, int);
 	std::vector<Ship> getShips() const;
 	std::vector<Shot> getShots() const;
+	Grid getGrid() const;
 	bool isHit(const Position::Coordinates) const;
 	bool placeShip(const Ship);
 };

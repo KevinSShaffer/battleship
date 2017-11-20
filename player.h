@@ -12,6 +12,7 @@ private:
 public:
 	Player(std::string);
 	std::string getName() const;
+	Board getBoard() const;
 	std::vector<Ship> getShips() const;
 	bool placeShip(const Ship);
 };

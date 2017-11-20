@@ -2,23 +2,21 @@
 #define GRID_H
 #include <vector>
 #include <string>
+#include "position.h"
 
 class Grid
 {
 private:	
-	std::vector< std::vector<int> > _vec;
+	std::vector< std::vector<char> > _vec;
 	int _rows, _columns;
 public:
 	Grid();
 	Grid(int rows, int cols);
-	Grid(int rows, int cols, int seed);
-	Grid(std::vector< std::vector<int> > vec);
+	Grid(std::vector< std::vector<char> > vec);
 	int getColumns() const;
 	int getRows() const;
-	void Randomize();
-	void Randomize(const int numCellsToChange);
 	std::string ToString();
-	Grid operator *(const Grid& grid2) const;
-	std::vector<int> operator [](const int row) const;
+	std::vector<char> operator [](const int row) const;
+	bool mark(Position::Coordinates, char);
 };
 #endif

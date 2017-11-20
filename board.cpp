@@ -17,9 +17,22 @@ std::vector<Shot> Board::getShots() const
 {
 	return _shots;
 }
+Grid Board::getGrid() const
+{
+	return _grid;
+}
 bool Board::isHit(const Position::Coordinates) const
 {
 	return true; // for testing;
+}
+void Board::markGrid(Ship ship)
+{
+	std::vector<Position::Coordinates> area = ship.getArea();
+
+	for (unsigned int i = 0; i < ship.getLength(); i++)
+	{
+		_grid.mark(area[i], ship.getIdentifier());
+	}
 }
 bool Board::placeShip(const Ship ship)
 {
@@ -32,11 +45,13 @@ bool Board::placeShip(const Ship ship)
 	if (ship.getOrientation() == Position::HORIZONTAL &&
 		coordinates.X + ship.getLength() - 1 < max_x && coordinates.Y < max_y) // is valid
 	{
+		markGrid(ship);
 		_ships.push_back(ship);
 		return true;
 	}
 	else if (coordinates.X < max_x && coordinates.Y + ship.getLength() - 1 < max_y)  // is valid
 	{
+		markGrid(ship);
 		_ships.push_back(ship);
 		return true;
 	}

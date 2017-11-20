@@ -1,8 +1,7 @@
 /********************************************************************
 *  Name        :  Kevin Shaffer
 *  Student ID  :  106069743
-*  Class       :  CSCI 2312-001        
-*  HW#         :  3
+*  Class       :  CSCI 2312-001
 *  Due Date    :  Sep 26th, 2017
 *  Description :  Contains the implementation of the Ship
   				  class.
@@ -11,10 +10,10 @@
 #include "ship.h"
 #include "position.h"
 
-Ship::Ship(std::string name, Position::Coordinates coordinates, Position::Orientation orientation, unsigned int length) :
-	_name(name), _coordinates(coordinates), _orientation(orientation), _length(length)
+Ship::Ship(ShipToken shipToken, Position::Coordinates coordinates, Position::Orientation orientation) :
+	_token(shipToken), _coordinates(coordinates), _orientation(orientation)
 {
-	if (length == 0)
+	if (_token.length == 0)
 		throw "Ship length must be greater than 0";
 }
 Position::Coordinates Ship::GetCoordinates() const
@@ -35,32 +34,46 @@ void Ship::setOrientation(Position::Orientation orientation)
 }
 std::string Ship::getName() const
 {
-	return _name;
+	return _token.name;
 }
 unsigned int Ship::getLength() const
 {
-	return _length;
+	return _token.length;
 }
 bool Ship::isSunk() const
 {
-	return _hits == _length; // assumes _length != 0
+	return _hits == _token.length; // assumes _length != 0
 }
 bool Ship::isHit(const Position::Coordinates& coordinates)
 {
-	Position::Coordinates shipCoordinates = _coordinates;
+	std::vector<Position::Coordinates> area;
 
-	for (int i = 0; i < _length; i++)
+	for (unsigned int i = 0; i < _token.length; i++)
 	{
-		if (shipCoordinates == coordinates)
+		if (area[i] == coordinates)
 		{
 			_hits++;
 			return true;
 		}
-		else if (_orientation == Position::HORIZONTAL)
-			shipCoordinates.X++;
-		else
-			shipCoordinates.Y++;
 	}
 
 	return false;
+}
+std::vector<Position::Coordinates> Ship::getArea() const
+{
+	std::vector<Position::Coordinates> area;
+
+	for (unsigned int i = 0; i < _token.length; i++)
+	{
+		if (_orientation == Position::HORIZONTAL)
+			area.push_back(Position::Coordinates(_coordinates.X + i, _coordinates.Y));
+		else
+			area.push_back(Position::Coordinates(_coordinates.X, _coordinates.Y + i));
+	}
+
+	return area;
+}
+char Ship::getIdentifier() const
+{
+	return _token.identifier;
 }

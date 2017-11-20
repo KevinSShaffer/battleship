@@ -11,7 +11,7 @@ Game::Game()
 		std::cout << "Input your name: " << std::endl;
 	} while (!(std::cin >> name));
 
-	Player player(name);
+	_player1 = new Player(name);
 
 	// have player1 add ships
 	for (int i = 0; i < 5; i++)
@@ -20,12 +20,14 @@ Game::Game()
 		do
 		{
 			Ship ship = createShip(_shipNames[i]);
-			placed = player.placeShip(ship);
+			placed = _player1->placeShip(ship);
 		} while (!placed);
+
+		std::cout << std::endl << _player1->getBoard().getGrid().ToString() << std::endl;
 	}
 
 	// create player2 (AI)
-	Player ai("HAL");
+	_player2 = new Player("HAL");
 	// create ships
 
 	// determine who goes first
@@ -35,6 +37,7 @@ Game::Game()
 Game::Game(Player* player1, Player* player2) :
 	_player1(player1), _player2(player2)
 {
+	// TODO
 	// determine who goes first
 	_first = player1;
 	_last = player2;
@@ -74,21 +77,14 @@ Position::Orientation Game::getOrientation()
 
 	return ((letter == 'h' || letter == 'H') ? Position::HORIZONTAL : Position::VERTICAL);
 }
-Ship Game::createShip(ShipLength shipLength)
+Ship Game::createShip(ShipToken token)
 {
-	std::cout << shipLength.name << ":" << std::endl;
+	std::cout << std::endl << token.name << ":" << std::endl << std::endl;
 	int x = getInput("Enter the x coordinate: ");
 	int y = getInput("Enter the y coordinate: ");
 	Position::Coordinates coordinates(x, y);
 	Position::Orientation orientation = getOrientation();
-	return Ship(shipLength.name, coordinates, orientation, shipLength.length);
-}
-void Game::outputPossibleShips()
-{
-	for (int i = 0, j = 1; i < _player1->getShips().size(); i++)
-	{
-
-	}
+	return Ship(token, coordinates, orientation);
 }
 bool Game::over() const
 {
