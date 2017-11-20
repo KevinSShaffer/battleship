@@ -8,19 +8,11 @@ class Player
 {
 private:
 	std::string _name;
-	Board _myBoard;
-	Board _theirBoard;
+	Board _board;
 public:
 	Player(std::string);
 	std::string getName() const;
-	bool isHit(const Position::Coordinates);
+	std::vector<Ship> getShips() const;
 	bool placeShip(const Ship);
-};
-
-class AI : public Player
-{
-public:
-	AI(std::string);
-	bool isHit();
 };
 #endif

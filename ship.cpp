@@ -11,8 +11,8 @@
 #include "ship.h"
 #include "position.h"
 
-Ship::Ship(Position::Coordinates coordinates, Position::Orientation orientation, unsigned int length) :
-	_coordinates(coordinates), _orientation(orientation), _length(length)
+Ship::Ship(std::string name, Position::Coordinates coordinates, Position::Orientation orientation, unsigned int length) :
+	_name(name), _coordinates(coordinates), _orientation(orientation), _length(length)
 {
 	if (length == 0)
 		throw "Ship length must be greater than 0";
@@ -32,6 +32,10 @@ Position::Orientation Ship::getOrientation() const
 void Ship::setOrientation(Position::Orientation orientation)
 {
 	_orientation = orientation;
+}
+std::string Ship::getName() const
+{
+	return _name;
 }
 unsigned int Ship::getLength() const
 {

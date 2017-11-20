@@ -32,11 +32,13 @@ bool Board::placeShip(const Ship ship)
 	if (ship.getOrientation() == Position::HORIZONTAL &&
 		coordinates.X + ship.getLength() - 1 < max_x && coordinates.Y < max_y) // is valid
 	{
-		// place ship
+		_ships.push_back(ship);
+		return true;
 	}
 	else if (coordinates.X < max_x && coordinates.Y + ship.getLength() - 1 < max_y)  // is valid
 	{
-		// place ship
+		_ships.push_back(ship);
+		return true;
 	}
 	else
 	{
