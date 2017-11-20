@@ -11,4 +11,5 @@ public:
 	Player(std::string);
 	std::string getName() const;
 	bool isHit(const Coordinates);
+	void placeShip(const Ship);
 };

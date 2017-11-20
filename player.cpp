@@ -13,3 +13,7 @@ bool Player::isHit(const Coordinates shot)
 {
 	return _theirBoard.isHit(shot);
 }
+void Board::placeShip(const Ship ship)
+{
+	_myBoard.placeShip(ship);
+}
