@@ -4,45 +4,44 @@
 *  Class       :  CSCI 2312-001        
 *  HW#         :  3
 *  Due Date    :  Sep 26th, 2017
-*  Description :  Contains the implementation of the WaterVechile
+*  Description :  Contains the implementation of the Ship
   				  class.
 ********************************************************************/
 
-#include "water_vehicle.h"
+#include "ship.h"
 #include "position.h"
 
-WaterVehicle::WaterVehicle(Position::Coordinates coordinates, Position::Orientation orientation, unsigned int length) :
+Ship::Ship(Position::Coordinates coordinates, Position::Orientation orientation, unsigned int length) :
 	_coordinates(coordinates), _orientation(orientation), _length(length)
 {
 	if (length == 0)
 		throw "Ship length must be greater than 0";
 }
-
-Position::Coordinates WaterVehicle::GetCoordinates() const
+Position::Coordinates Ship::GetCoordinates() const
 {
 	return _coordinates;
 }
-void WaterVehicle::SetCoordinates(Position::Coordinates coordinates)
+void Ship::setCoordinates(Position::Coordinates coordinates)
 {
 	_coordinates = coordinates;
 }
-Position::Orientation WaterVehicle::GetOrientation() const
+Position::Orientation Ship::getOrientation() const
 {
 	return _orientation;
 }
-void WaterVehicle::SetOrientation(Position::Orientation orientation)
+void Ship::setOrientation(Position::Orientation orientation)
 {
 	_orientation = orientation;
 }
-unsigned int WaterVehicle::GetLength() const
+unsigned int Ship::getLength() const
 {
 	return _length;
 }
-bool WaterVehicle::IsSunk() const
+bool Ship::isSunk() const
 {
 	return _hits == _length; // assumes _length != 0
 }
-bool WaterVehicle::IsHit(const Position::Coordinates& coordinates)
+bool Ship::isHit(const Position::Coordinates& coordinates)
 {
 	Position::Coordinates shipCoordinates = _coordinates;
 

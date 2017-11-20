@@ -1,8 +1,13 @@
 
 #include <iostream>
 #include <string>
+#include "player.h"
+#include "game.h"
 
 const int NUM_SHIPS = 5;
+
+int getInput(std::string);
+Position::Orientation getOrientation();
 
 int main()
 {
@@ -19,42 +24,47 @@ int main()
 	// have player1 add ships
 	for (int i = 0; i < NUM_SHIPS; i++)
 	{
-		int x, y, length, depth;
-		Position::Orientation orientation;
-		Position::Coordinates coordinates;
-
+		bool placed;
 		do
 		{
+			int x, y, length, depth;
+			Position::Orientation orientation;
+
 			x = getInput("Enter the x coordinate: ");
 			y = getInput("Enter the y coordinate: ");
-			coordinates = Position::Coordinates(x, y)
-			length = getInput("Enter the length: ");
+			Position::Coordinates coordinates = Position::Coordinates(x, y);
+			length = getInput("Enter the length: "); // this should be "Pick a ship" instead
 			orientation = getOrientation();
-			Ship ship(coordinate, orientation, length, depth);
-		} while (!player.placeShip(ship));
+			Ship ship(coordinates, orientation, length);
+			placed = player.placeShip(ship);
+		} while (!placed);
 	}
 
 	// create player2 (AI)
+	Player ai("HAL");
+
 	// create game
-	// determine who goes first
-	// get player shots
-	// before/after each player shot, generate AI shot
-	// check for winner
-	// loop until winner
+	Game game(&player, &ai);
+
+	while (!game.over())
+	{
+		// generate players' shots
+	}
+
 	// ouput results
 	// ask to play again
 }
-int getInput(string question)
+int getInput(std::string question)
 {
 	int value = -1;
 
 	// loop until user provides valid integer input 
 	while (value < 0)
 	{
-		cout << question << endl;
-		cin >> value;
-		cin.clear();
-		cin.ignore(256,'\n');
+		std::cout << question << std::endl;
+		std::cin >> value;
+		std::cin.clear();
+		std::cin.ignore(256,'\n');
 	}
 
 	return value;
@@ -64,10 +74,10 @@ Position::Orientation getOrientation()
 	char letter = '\0';
 	do
 	{
-		cout << "Horizontal (h) or Verical (v) orientation: " << endl;
-		cin >> letter;
-		cin.clear();
-		cin.ignore(256, '\n');
+		std::cout << "Horizontal (h) or Verical (v) orientation: " << std::endl;
+		std::cin >> letter;
+		std::cin.clear();
+		std::cin.ignore(256, '\n');
 	} while (!letter || letter != 'h' && letter != 'H' && letter != 'v' && letter != 'V');
 
 	return ((letter == 'h' || letter == 'H') ? Position::HORIZONTAL : Position::VERTICAL);

@@ -1,35 +1,45 @@
 
+#include "board.h"
 
-
+Board::Board() :
+	_grid(Grid(10, 10))
+{
+}
 Board::Board(int x, int y)
 {
 	_grid = Grid(x, y);
 }
-std::Vector<Ship> Board::getShips() const
+std::vector<Ship> Board::getShips() const
 {
 	return _ships;
 }
-std::Vector<Shot> Board::getShots() const
+std::vector<Shot> Board::getShots() const
 {
 	return _shots;
 }
-bool Board::isHit(const Coordinate) const
+bool Board::isHit(const Position::Coordinates) const
 {
 	return true; // for testing;
 }
-void Board::placeShip(const Ship ship)
-{
-	// empty for testing
-}
-bool Board::isValidPlacement(Position::Orientation orientation, int x, int y, int length) const
+bool Board::placeShip(const Ship ship)
 {
 	// check for ship intersections
 
 	int max_x = _grid.getColumns();
-	int may_y = _grid.getRows();
-	length--;
-	if (orientation == Position::HORIZONTAL)
-		return x + length < max_x && y < max_y;
+	int max_y = _grid.getRows();
+	Position::Coordinates coordinates = ship.GetCoordinates();
+
+	if (ship.getOrientation() == Position::HORIZONTAL &&
+		coordinates.X + ship.getLength() - 1 < max_x && coordinates.Y < max_y) // is valid
+	{
+		// place ship
+	}
+	else if (coordinates.X < max_x && coordinates.Y + ship.getLength() - 1 < max_y)  // is valid
+	{
+		// place ship
+	}
 	else
-		return x < max_x && y + length < max_y;
+	{
+		return false;
+	}
 }

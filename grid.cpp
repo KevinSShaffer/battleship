@@ -9,11 +9,15 @@
 ********************************************************************/
 
 #include "grid.h"
-#include <vector>
-#include <string>
 #include <time.h>
 #include <stdlib.h>
 
+Grid::Grid() :
+	_vec(10, std::vector<int>(10)), _rows(10), _columns(10)
+{
+	// seed a RNG with current date time
+	srand(time(0));
+}
 Grid::Grid(int rows, int cols) :
 	_vec(rows, std::vector<int>(cols)), _rows(rows), _columns(cols)
 {

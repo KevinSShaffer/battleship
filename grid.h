@@ -2,7 +2,6 @@
 #define GRID_H
 #include <vector>
 #include <string>
-#endif
 
 class Grid
 {
@@ -10,6 +9,7 @@ private:
 	std::vector< std::vector<int> > _vec;
 	int _rows, _columns;
 public:
+	Grid();
 	Grid(int rows, int cols);
 	Grid(int rows, int cols, int seed);
 	Grid(std::vector< std::vector<int> > vec);
@@ -21,3 +21,4 @@ public:
 	Grid operator *(const Grid& grid2) const;
 	std::vector<int> operator [](const int row) const;
 };
+#endif

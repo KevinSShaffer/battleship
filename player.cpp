@@ -1,27 +1,29 @@
 
 #include "player.h"
 
-Player::Player(std::string name)
+Player::Player(std::string name) :
+	_name(name)
 {
-	_name = name;
 }
-Player::getName() const
+std::string Player::getName() const
 {
 	return _name;
 }
-bool Player::isHit(const Coordinates shot)
+bool Player::isHit(const Position::Coordinates shot)
 {
 	return _theirBoard.isHit(shot);
 }
-bool Board::placeShip(const Ship ship)
+bool Player::placeShip(const Ship ship)
 {
-	if (_myBoard.isValidPlacement(ship))
-	{
-		_myBoard.placeShip(ship);
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return _myBoard.placeShip(ship);
+}
+
+AI::AI(std::string name) :
+	Player(name)
+{
+	// randomly place the 5 ships
+}
+bool AI::isHit()
+{
+	return Player::isHit(Position::Coordinates(0, 0)); // for testing
 }
