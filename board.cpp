@@ -7,9 +7,10 @@ Board::Board() :
 }
 Board::Board(int x, int y)
 {
-	_grid = Grid(x, y);
+	_grid = Grid(x, y, _waterToken);
 }
-Board::Board(int x, int y, char c)
+Board::Board(int x, int y, char c) :
+	_waterToken(c)
 {
 	_grid = Grid(x, y, c);
 }
@@ -27,22 +28,30 @@ Grid Board::getGrid() const
 }
 bool Board::isHit(Shot shot)
 {
-	_shots.push_back(shot);
-
-	// check if the shot hits any of the ships
-	for (int i = 0; i < _ships.size(); i++)
+	if (_grid[shot.Y][shot.X] == _hit ||
+		_grid[shot.Y][shot.X] == _miss)
 	{
-		if (_ships[i].isHit(shot))
-		{
-			shot.makeHit();
-			_grid.mark(shot, 'X');
-			return true;
-		}
+		return _grid[shot.Y][shot.X] == _hit;
 	}
+	else
+	{
+		_shots.push_back(shot);
 
-	shot.makeMiss();
-	_grid.mark(shot, 'O');
-	return false;
+		// check if the shot hits any of the ships
+		for (int i = 0; i < _ships.size(); i++)
+		{
+			if (_ships[i].isHit(shot))
+			{
+				shot.makeHit();
+				_grid.mark(shot, _hit);
+				return true;
+			}
+		}
+
+		shot.makeMiss();
+		_grid.mark(shot, _miss);
+		return false;
+	}
 }
 void Board::markGrid(Ship ship)
 {
@@ -82,4 +91,22 @@ bool Board::placeShip(const Ship ship)
 	{
 		return false;
 	}
+}
+bool Board::tryGetShip(Position::Coordinates coordinates, Ship& ship) const
+{
+	for (int i = 0; i < _ships.size(); i++)
+	{
+		std::vector<Position::Coordinates> area = _ships[i].getArea();
+
+		for (int j = 0; j < area.size(); j++)
+		{
+			if (coordinates == area[j])
+			{
+				ship = _ships.at(i);
+				return true;
+			}
+		}
+	}
+
+	return false;
 }

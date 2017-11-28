@@ -21,6 +21,7 @@ struct ShipToken
 class Ship
 {
 public:
+	Ship();
 	Ship(ShipToken, Position::Coordinates, Position::Orientation);
 	Position::Coordinates GetCoordinates() const;
 	void setCoordinates(Position::Coordinates);

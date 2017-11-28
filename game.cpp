@@ -97,8 +97,8 @@ bool Game::tryPlaceShip(ShipToken shipName)
 	return _player1->placeShip(ship);
 }
 bool Game::over() const
-{																	/* TODO: implement */
-	return false;
+{
+
 }
 void Game::takeTurn()
 {
@@ -118,11 +118,20 @@ void Game::takeTurn(Player* aggressor, Player* defender)
 		int y = getInput("Enter the y coordinate: ");
 
 		// fire shot
-		std::cout << "That was a ";
+		std::cout << std::endl << "That was a ";
 
 		Shot shot(x, y);
 		if (defender->isHit(shot))
+		{
 			std::cout << "HIT!" << std::endl;
+
+			Ship ship;
+			if (defender->getBoard().tryGetShip(Position::Coordinates(x, y), ship) &&
+				ship.isSunk())
+			{
+				std::cout << "You sunk their " << ship.getName() << "!" << std::endl;
+			}
+		}
 		else
 			std::cout << "MISS." << std::endl;
 	}

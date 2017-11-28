@@ -10,8 +10,12 @@
 #include "ship.h"
 #include "position.h"
 
+Ship::Ship() :
+	_coordinates(-1, -1)
+{
+}
 Ship::Ship(ShipToken shipToken, Position::Coordinates coordinates, Position::Orientation orientation) :
-	_token(shipToken), _coordinates(coordinates), _orientation(orientation)
+	_token(shipToken), _coordinates(coordinates), _orientation(orientation), _hits(0)
 {
 	if (_token.length == 0)
 		throw "Ship length must be greater than 0";
@@ -42,7 +46,7 @@ unsigned int Ship::getLength() const
 }
 bool Ship::isSunk() const
 {
-	return _hits == _token.length; // assumes _length != 0
+	return _hits == _token.length; // assumes _length != 0					// this should check locations of hits
 }
 bool Ship::isHit(const Position::Coordinates& coordinates)
 {
@@ -52,7 +56,7 @@ bool Ship::isHit(const Position::Coordinates& coordinates)
 	{
 		if (area[i] == coordinates)
 		{
-			_hits++;
+			_hits++;														// this should keep track of where it was hit
 			return true;
 		}
 	}

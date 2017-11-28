@@ -4,7 +4,7 @@
 Player::Player(std::string name) :
 	_name(name)
 {
-	_board = Board(10, 10, _waterToken);
+	_board = Board(10, 10);
 }
 std::string Player::getName() const
 {

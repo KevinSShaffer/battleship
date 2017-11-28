@@ -8,6 +8,9 @@
 class Board 
 {
 private:
+	const static char _hit = 'X';
+	const static char _miss = 'O';
+	char _waterToken = '~';
 	std::vector<Ship> _ships;
 	std::vector<Shot> _shots;
 	Grid _grid;
@@ -21,5 +24,6 @@ public:
 	Grid getGrid() const;
 	bool isHit(Shot);
 	bool placeShip(const Ship);
+	bool tryGetShip(Position::Coordinates, Ship&) const;
 };
 #endif
