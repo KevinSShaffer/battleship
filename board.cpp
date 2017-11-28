@@ -40,13 +40,12 @@ void Board::markGrid(Ship ship)
 }
 bool Board::placeShip(const Ship ship)
 {
-	// check for ship collision
+	// check for ship collision with other placed ships
 	for (int i = 0; i < _ships.size(); i++)
-	{
 		if (_ships[i].isCollision(ship))
 			return false;
-	}
 
+	// check if ship fits on board
 	int max_x = _grid.getColumns();
 	int max_y = _grid.getRows();
 	Position::Coordinates coordinates = ship.GetCoordinates();

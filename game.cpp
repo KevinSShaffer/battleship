@@ -26,6 +26,8 @@ Game::Game()
 
 	// create player2 (AI)
 	_player2 = new Player("HAL");
+	_player2->makeAI();
+
 	// create ships													/* TODO: randomize */
 	for (int i = 0; i < NUM_SHIPS; i++)
 	{
@@ -35,6 +37,8 @@ Game::Game()
 	// determine who goes first										/* TODO: randomize */
 	_first = _player1;
 	_last = _player2;
+
+	std::cout << _first->getName() << " goes first." << std::endl;
 }
 Game::Game(Player* player1, Player* player2) :
 	_player1(player1), _player2(player2)
@@ -97,6 +101,24 @@ bool Game::over() const
 	return false;
 }
 void Game::takeTurn()
+{																	/* TODO: implement */
+	takeTurn(_first);
+	takeTurn(_last);
+}
+void Game::takeTurn(Player* player)
+{
+	if (player->isHuman())
+	{
+		std::cout << std::endl << "Place a shot:" << std::endl << std::endl;
+		int x = getInput("Enter the x coordinate: ");
+		int y = getInput("Enter the y coordinate: ");
+
+		// fire shot
+	}
+	else
+		takeAiTurn(player);
+}
+void Game::takeAiTurn(Player* ai)
 {
 
 }

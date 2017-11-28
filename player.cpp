@@ -22,3 +22,15 @@ bool Player::placeShip(const Ship ship)
 {
 	return _board.placeShip(ship);
 }
+bool Player::isHuman() const
+{
+	return _isHuman;
+}
+void Player::makeHuman()
+{
+	_isHuman = true;
+}
+void Player::makeAI()
+{
+	_isHuman = false;
+}
