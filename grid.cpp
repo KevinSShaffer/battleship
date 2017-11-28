@@ -35,6 +35,11 @@ int Grid::getRows() const
 }
 std::string Grid::ToString()
 {
+	//return ToString(" | ");
+	return ToString(" ");
+}
+std::string Grid::ToString(std::string filler)
+{
 	std::string output;
 
 	// loop through the rows in the grid
@@ -53,8 +58,7 @@ std::string Grid::ToString()
 		{
 			// add a space (except the first column) and the digit to ouput
 			if (it_y != it_x->begin())
-				//output += " | ";
-				output += " ";
+				output += filler;
 
 			output += *it_y;
 		}

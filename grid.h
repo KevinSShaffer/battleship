@@ -17,6 +17,7 @@ public:
 	int getColumns() const;
 	int getRows() const;
 	std::string ToString();
+	std::string ToString(std::string);
 	std::vector<char> operator [](const int) const;
 	bool mark(Position::Coordinates, char);
 };
