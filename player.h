@@ -23,5 +23,6 @@ public:
 	bool isHit(Shot);
 	std::string boardToString(bool);
 	bool isShipToken(char) const;
+	bool hasLost() const;
 };
 #endif

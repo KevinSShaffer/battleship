@@ -64,3 +64,11 @@ bool Player::isShipToken(char c) const
 
 	return false;
 }
+bool Player::hasLost() const
+{
+	for (int i = 0; i < _board.getShips().size(); i++)
+		if (!_board.getShips()[i].isSunk())
+			return false;
+
+	return true;
+}
