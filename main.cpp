@@ -6,13 +6,21 @@
 
 int main()
 {
-	Game game;
-
-	while (!game.over())
+	char again;
+	do
 	{
-		game.takeTurn();
-	}
+		Game game;
+		Player winner;
 
-	// ouput results
-	// ask to play again
+		// loop until the game has a winner
+		while (!game.hasWinner(winner))
+		{
+			game.takeTurn();
+		}
+
+		// ouput results
+		std::cout << winner.getName() << " has won!!!" << std::endl;
+
+		std::cout << "Would you like to play again?" << std::endl;
+	} while ((std::cin >> again) && (again == 'Y' || again == 'y'));
 }

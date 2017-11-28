@@ -12,6 +12,7 @@ private:
 	bool _isHuman = true;
 	char _waterToken = '~';
 public:
+	Player();
 	Player(std::string);
 	std::string getName() const;
 	Board getBoard() const;

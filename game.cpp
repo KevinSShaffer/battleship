@@ -51,8 +51,6 @@ Game::~Game()
 {
 	delete(_player1);
 	delete(_player2);
-	delete(_first);
-	delete(_last);
 }
 int Game::getInput(std::string question)
 {
@@ -96,9 +94,20 @@ bool Game::tryPlaceShip(ShipToken shipName)
 	Ship ship = createShip(shipName);
 	return _player1->placeShip(ship);
 }
-bool Game::over() const
+bool Game::hasWinner(Player& winner)
 {
-
+	if (_player1->hasLost())
+	{
+		winner = *_player2;
+		return true;
+	}
+	else if (_player2->hasLost())
+	{
+		winner = *_player1;
+		return true;
+	}
+	else
+		return false;
 }
 void Game::takeTurn()
 {

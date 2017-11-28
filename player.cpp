@@ -1,6 +1,10 @@
 
 #include "player.h"
 
+Player::Player() :
+	_name("")
+{
+}
 Player::Player(std::string name) :
 	_name(name)
 {

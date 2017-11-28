@@ -27,6 +27,6 @@ public:
 	Game(Player*, Player*);
 	~Game();
 	void takeTurn();
-	bool over() const;
+	bool hasWinner(Player&);
 };
 #endif
