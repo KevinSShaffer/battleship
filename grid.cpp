@@ -10,11 +10,15 @@
 #include "grid.h"
 
 Grid::Grid() :
-	_vec(10, std::vector<char>(10, '+')), _rows(10), _columns(10)
+	_vec(10, std::vector<char>(10, ' ')), _rows(10), _columns(10)
 {
 }
 Grid::Grid(int rows, int cols) :
-	_vec(rows, std::vector<char>(cols, '+')), _rows(rows), _columns(cols)
+	_vec(rows, std::vector<char>(cols, ' ')), _rows(rows), _columns(cols)
+{
+}
+Grid::Grid(int rows, int cols, char c) :
+	_vec(rows, std::vector<char>(cols, c)), _rows(rows), _columns(cols)
 {
 }
 Grid::Grid(std::vector< std::vector<char> > vec) :
@@ -49,7 +53,8 @@ std::string Grid::ToString()
 		{
 			// add a space (except the first column) and the digit to ouput
 			if (it_y != it_x->begin())
-				output += " | ";
+				//output += " | ";
+				output += " ";
 
 			output += *it_y;
 		}

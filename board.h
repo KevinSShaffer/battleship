@@ -15,6 +15,7 @@ private:
 public:
 	Board();
 	Board(int, int);
+	Board(int, int, char);
 	std::vector<Ship> getShips() const;
 	std::vector<Shot> getShots() const;
 	Grid getGrid() const;

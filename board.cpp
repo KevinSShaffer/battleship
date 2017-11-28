@@ -9,6 +9,10 @@ Board::Board(int x, int y)
 {
 	_grid = Grid(x, y);
 }
+Board::Board(int x, int y, char c)
+{
+	_grid = Grid(x, y, c);
+}
 std::vector<Ship> Board::getShips() const
 {
 	return _ships;

@@ -11,12 +11,13 @@ private:
 	int _rows, _columns;
 public:
 	Grid();
-	Grid(int rows, int cols);
-	Grid(std::vector< std::vector<char> > vec);
+	Grid(int, int);
+	Grid(int, int, char);
+	Grid(std::vector< std::vector<char> >);
 	int getColumns() const;
 	int getRows() const;
 	std::string ToString();
-	std::vector<char> operator [](const int row) const;
+	std::vector<char> operator [](const int) const;
 	bool mark(Position::Coordinates, char);
 };
 #endif
