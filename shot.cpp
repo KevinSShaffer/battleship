@@ -1,8 +1,8 @@
 
 #include "shot.h"
 
-Shot::Shot(Position::Coordinates coordinates) :
-	_coordinates(coordinates)
+Shot::Shot(int x, int y) :
+	Position::Coordinates(x, y)
 {
 }
 bool Shot::isHit() const

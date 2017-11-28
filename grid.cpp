@@ -33,12 +33,12 @@ int Grid::getRows() const
 {
 	return _rows;
 }
-std::string Grid::ToString()
+std::string Grid::toString()
 {
-	//return ToString(" | ");
-	return ToString(" ");
+	//return toString(" | ");
+	return toString(" ");
 }
-std::string Grid::ToString(std::string filler)
+std::string Grid::toString(std::string filler)
 {
 	std::string output;
 

@@ -21,7 +21,7 @@ Game::Game()
 			std::cout << "Unable to place ship.  Please try again." << std::endl;
 		}
 
-		std::cout << std::endl << _player1->getBoard().getGrid().ToString() << std::endl;
+		std::cout << std::endl << _player1->getBoard().getGrid().toString() << std::endl;
 	}
 
 	// create player2 (AI)
@@ -101,24 +101,35 @@ bool Game::over() const
 	return false;
 }
 void Game::takeTurn()
-{																	/* TODO: implement */
-	takeTurn(_first);
-	takeTurn(_last);
-}
-void Game::takeTurn(Player* player)
 {
-	if (player->isHuman())
+	takeTurn(_first, _last);
+	takeTurn(_last, _first);
+
+	// show player1's boards
+	std::cout << std::endl << _player2->boardToString(true) << std::endl;
+	std::cout << std::endl << _player1->boardToString(false) << std::endl;
+}
+void Game::takeTurn(Player* aggressor, Player* defender)
+{
+	if (aggressor->isHuman())
 	{
 		std::cout << std::endl << "Place a shot:" << std::endl << std::endl;
 		int x = getInput("Enter the x coordinate: ");
 		int y = getInput("Enter the y coordinate: ");
 
 		// fire shot
+		std::cout << "That was a ";
+
+		Shot shot(x, y);
+		if (defender->isHit(shot))
+			std::cout << "HIT!" << std::endl;
+		else
+			std::cout << "MISS." << std::endl;
 	}
 	else
-		takeAiTurn(player);
+		takeAiTurn(aggressor, defender);
 }
-void Game::takeAiTurn(Player* ai)
-{
+void Game::takeAiTurn(Player* aggressor, Player* defender)
+{																	/* TODO: implement */
 
 }

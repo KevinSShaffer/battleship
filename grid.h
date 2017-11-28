@@ -16,8 +16,8 @@ public:
 	Grid(std::vector< std::vector<char> >);
 	int getColumns() const;
 	int getRows() const;
-	std::string ToString();
-	std::string ToString(std::string);
+	std::string toString();
+	std::string toString(std::string);
 	std::vector<char> operator [](const int) const;
 	bool mark(Position::Coordinates, char);
 };

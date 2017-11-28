@@ -19,7 +19,7 @@ public:
 	std::vector<Ship> getShips() const;
 	std::vector<Shot> getShots() const;
 	Grid getGrid() const;
-	bool isHit(const Position::Coordinates) const;
+	bool isHit(Shot);
 	bool placeShip(const Ship);
 };
 #endif

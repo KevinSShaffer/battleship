@@ -10,6 +10,7 @@ private:
 	std::string _name;
 	Board _board;
 	bool _isHuman = true;
+	char _waterToken = '~';
 public:
 	Player(std::string);
 	std::string getName() const;
@@ -19,5 +20,8 @@ public:
 	bool isHuman() const;
 	void makeHuman();
 	void makeAI();
+	bool isHit(Shot);
+	std::string boardToString(bool);
+	bool isShipToken(char) const;
 };
 #endif

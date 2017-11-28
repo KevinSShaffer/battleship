@@ -4,7 +4,7 @@
 Player::Player(std::string name) :
 	_name(name)
 {
-	_board = Board(10, 10, '~');
+	_board = Board(10, 10, _waterToken);
 }
 std::string Player::getName() const
 {
@@ -33,4 +33,34 @@ void Player::makeHuman()
 void Player::makeAI()
 {
 	_isHuman = false;
+}
+bool Player::isHit(Shot shot)
+{
+	return _board.isHit(shot);
+}
+std::string Player::boardToString(bool forOpponent)
+{
+	std::string output = _board.getGrid().toString();
+
+	// hide ship tokens as water
+	if (forOpponent)
+	{
+		for (int i = 0; i < output.size(); i++)
+		{
+			if (isShipToken(output[i]))
+				output[i] = _waterToken;
+		}
+	}
+
+	return output;
+}
+bool Player::isShipToken(char c) const
+{
+	for (int i = 0; i < _board.getShips().size(); i++)
+	{
+		if (c == _board.getShips()[i].getIdentifier())
+			return true;
+	}
+
+	return false;
 }

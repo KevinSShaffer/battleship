@@ -20,8 +20,8 @@ private:
 	Position::Orientation getOrientation();
 	Ship createShip(ShipToken);
 	bool tryPlaceShip(ShipToken);
-	void takeTurn(Player*);
-	void takeAiTurn(Player*);
+	void takeTurn(Player*, Player*);
+	void takeAiTurn(Player*, Player*);
 public:
 	Game();
 	Game(Player*, Player*);

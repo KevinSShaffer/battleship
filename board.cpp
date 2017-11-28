@@ -25,9 +25,24 @@ Grid Board::getGrid() const
 {
 	return _grid;
 }
-bool Board::isHit(const Position::Coordinates) const
+bool Board::isHit(Shot shot)
 {
-	return true; // for testing;
+	_shots.push_back(shot);
+
+	// check if the shot hits any of the ships
+	for (int i = 0; i < _ships.size(); i++)
+	{
+		if (_ships[i].isHit(shot))
+		{
+			shot.makeHit();
+			_grid.mark(shot, 'X');
+			return true;
+		}
+	}
+
+	shot.makeMiss();
+	_grid.mark(shot, 'O');
+	return false;
 }
 void Board::markGrid(Ship ship)
 {

@@ -46,7 +46,7 @@ bool Ship::isSunk() const
 }
 bool Ship::isHit(const Position::Coordinates& coordinates)
 {
-	std::vector<Position::Coordinates> area;
+	std::vector<Position::Coordinates> area = getArea();
 
 	for (unsigned int i = 0; i < _token.length; i++)
 	{
