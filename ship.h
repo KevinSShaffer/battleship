@@ -32,6 +32,7 @@ public:
 	bool isHit(const Position::Coordinates&);
 	std::vector<Position::Coordinates> getArea() const;
 	char getIdentifier() const;
+	bool isCollision(Ship) const;
 private:
 	ShipToken _token;
 	Position::Coordinates _coordinates;

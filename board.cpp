@@ -40,7 +40,12 @@ void Board::markGrid(Ship ship)
 }
 bool Board::placeShip(const Ship ship)
 {
-	// check for ship intersections
+	// check for ship collision
+	for (int i = 0; i < _ships.size(); i++)
+	{
+		if (_ships[i].isCollision(ship))
+			return false;
+	}
 
 	int max_x = _grid.getColumns();
 	int max_y = _grid.getRows();

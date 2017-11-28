@@ -73,6 +73,23 @@ std::vector<Position::Coordinates> Ship::getArea() const
 
 	return area;
 }
+bool Ship::isCollision(Ship otherShip) const
+{
+	using area = std::vector<Position::Coordinates>;
+	area thisArea = getArea();
+	area otherArea = otherShip.getArea();
+
+	for (int i = 0; i < thisArea.size(); i++)
+	{
+		for (int j = 0; j < otherArea.size(); j++)
+		{
+			if (thisArea[i] == otherArea[j])
+				return true;
+		}
+	}
+
+	return false;
+}
 char Ship::getIdentifier() const
 {
 	return _token.identifier;
