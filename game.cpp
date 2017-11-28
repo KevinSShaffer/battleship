@@ -56,6 +56,9 @@ Game::Game()
 
 	std::cout << std::endl << _first->getName() << " goes first." << std::endl;
 }
+Game::Game(std::string playerCsv, std::string aiCsv)
+{
+}
 Game::Game(Player* player1, Player* player2) :
 	_player1(player1), _player2(player2)
 {

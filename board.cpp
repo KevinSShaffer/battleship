@@ -28,7 +28,12 @@ Grid Board::getGrid() const
 }
 bool Board::isHit(Shot shot)
 {
-	if (_grid[shot.Y][shot.X] == _hit ||
+	if (shot.Y < 0 || shot.Y >= _grid.getRows() ||
+		shot.X < 0 || shot.X >= _grid.getColumns())
+	{
+		return false;
+	}
+	else if (_grid[shot.Y][shot.X] == _hit ||
 		_grid[shot.Y][shot.X] == _miss)
 	{
 		return _grid[shot.Y][shot.X] == _hit;

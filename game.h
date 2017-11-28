@@ -1,17 +1,18 @@
 #ifndef GAME_H
 #define GAME_H
 #include <iostream>
+#include <string>
 #include "player.h"
 
 class Game
 {
 private:
 	const static int NUM_SHIPS = 5;
-	const ShipToken _shipNames[NUM_SHIPS] = { "Carrier", 5, 'R',
-		"Battleship", 4, 'B', 
-		"Cruiser", 3, 'C',
-		"Submarine", 3, 'U',
-		"Destroyer", 2, 'D' };
+	const ShipToken _shipNames[NUM_SHIPS] = { "Carrier", 5, 'r',
+		"Battleship", 4, 'b', 
+		"Cruiser", 3, 'c',
+		"Submarine", 3, 'u',
+		"Destroyer", 2, 'd' };
 	Player* _player1;
 	Player* _player2;
 	Player* _first;
@@ -24,6 +25,7 @@ private:
 	void takeAiTurn(Player*, Player*);
 public:
 	Game();
+	Game(std::string, std::string);
 	Game(Player*, Player*);
 	~Game();
 	void takeTurn();
