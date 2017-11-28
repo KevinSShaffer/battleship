@@ -14,31 +14,32 @@ Game::Game()
 	_player1 = new Player(name);
 
 	// have player1 add ships
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < NUM_SHIPS; i++)
 	{
-		bool placed;
-		do
+		while (!tryPlaceShip(_shipNames[i]))
 		{
-			Ship ship = createShip(_shipNames[i]);
-			placed = _player1->placeShip(ship);
-		} while (!placed);
+			std::cout << "Unable to place ship.  Please try again." << std::endl;
+		}
 
 		std::cout << std::endl << _player1->getBoard().getGrid().ToString() << std::endl;
 	}
 
 	// create player2 (AI)
 	_player2 = new Player("HAL");
-	// create ships
+	// create ships													/* TODO: randomize */
+	for (int i = 0; i < NUM_SHIPS; i++)
+	{
+		_player2->placeShip(Ship(_shipNames[i], Position::Coordinates(i, i), Position::Orientation::HORIZONTAL));
+	}
 
-	// determine who goes first
+	// determine who goes first										/* TODO: randomize */
 	_first = _player1;
 	_last = _player2;
 }
 Game::Game(Player* player1, Player* player2) :
 	_player1(player1), _player2(player2)
 {
-	// TODO
-	// determine who goes first
+	// determine who goes first										/* TODO: randomize */
 	_first = player1;
 	_last = player2;
 }
@@ -86,9 +87,14 @@ Ship Game::createShip(ShipToken token)
 	Position::Orientation orientation = getOrientation();
 	return Ship(token, coordinates, orientation);
 }
-bool Game::over() const
+bool Game::tryPlaceShip(ShipToken shipName)
 {
-	return false; // for testing
+	Ship ship = createShip(shipName);
+	return _player1->placeShip(ship);
+}
+bool Game::over() const
+{																	/* TODO: implement */
+	return false;
 }
 void Game::takeTurn()
 {

@@ -6,7 +6,8 @@
 class Game
 {
 private:
-	const ShipToken _shipNames[5] = { "Carrier", 5, 'R',
+	const static int NUM_SHIPS = 5;
+	const ShipToken _shipNames[NUM_SHIPS] = { "Carrier", 5, 'R',
 		"Battleship", 4, 'B', 
 		"Cruiser", 3, 'C',
 		"Submarine", 3, 'U',
@@ -18,6 +19,7 @@ private:
 	int getInput(std::string);
 	Position::Orientation getOrientation();
 	Ship createShip(ShipToken);
+	bool tryPlaceShip(ShipToken);
 public:
 	Game();
 	Game(Player*, Player*);
