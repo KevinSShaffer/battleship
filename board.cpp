@@ -110,3 +110,8 @@ bool Board::tryGetShip(Position::Coordinates coordinates, Ship& ship) const
 
 	return false;
 }
+bool Board::hasBeenShot(Position::Coordinates coordinates) const
+{
+	return _grid[coordinates.Y][coordinates.X] == _hit ||
+		_grid[coordinates.Y][coordinates.X] == _miss;
+}

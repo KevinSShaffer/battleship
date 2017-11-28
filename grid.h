@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 #include "position.h"
+#include <stdlib.h>
+#include <time.h>
 
 class Grid
 {

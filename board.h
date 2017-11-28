@@ -25,5 +25,6 @@ public:
 	bool isHit(Shot);
 	bool placeShip(const Ship);
 	bool tryGetShip(Position::Coordinates, Ship&) const;
+	bool hasBeenShot(Position::Coordinates) const;
 };
 #endif

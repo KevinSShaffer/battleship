@@ -3,7 +3,6 @@
 #include "player.h"
 #include "game.h"
 
-
 int main()
 {
 	char again;

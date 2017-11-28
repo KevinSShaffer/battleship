@@ -3,6 +3,8 @@
 
 Game::Game()
 {
+	srand(time(0));
+
 	// create player1
 	std::string name;
 
@@ -28,24 +30,44 @@ Game::Game()
 	_player2 = new Player("HAL");
 	_player2->makeAI();
 
-	// create ships													/* TODO: randomize */
+	// create ships
 	for (int i = 0; i < NUM_SHIPS; i++)
 	{
-		_player2->placeShip(Ship(_shipNames[i], Position::Coordinates(i, i), Position::Orientation::HORIZONTAL));
+		int x = rand() % 10,
+			y = rand() % 10;
+		Position::Orientation orientation = rand() % 2 == 0 ? Position::Orientation::HORIZONTAL : Position::Orientation::VERTICAL; // random orientation
+		
+		Ship aiShip(_shipNames[i], Position::Coordinates(x, y), orientation);
+
+		while (!_player2->placeShip(aiShip))
+		{
+			x = rand() % 10;
+			y = rand() % 10;
+			orientation = rand() % 2 == 0 ? Position::Orientation::HORIZONTAL : Position::Orientation::VERTICAL;
+			aiShip = Ship(_shipNames[i], Position::Coordinates(x, y), orientation);
+		}
 	}
 
-	// determine who goes first										/* TODO: randomize */
-	_first = _player1;
-	_last = _player2;
+	// determine who goes first
+	int randBit = rand() % 2;
 
-	std::cout << _first->getName() << " goes first." << std::endl;
+	_first = randBit == 0 ? _player1 : _player2;
+	_last = randBit == 1 ? _player1 : _player2;
+
+	std::cout << std::endl << _first->getName() << " goes first." << std::endl;
 }
 Game::Game(Player* player1, Player* player2) :
 	_player1(player1), _player2(player2)
 {
-	// determine who goes first										/* TODO: randomize */
-	_first = player1;
-	_last = player2;
+	srand(time(0));
+
+	// determine who goes first
+	int randBit = rand() % 2;
+
+	_first = randBit == 0 ? _player1 : _player2;
+	_last = randBit == 1 ? _player1 : _player2;
+
+	std::cout << std::endl << _first->getName() << " goes first." << std::endl;
 }
 Game::~Game()
 {
@@ -112,7 +134,9 @@ bool Game::hasWinner(Player& winner)
 void Game::takeTurn()
 {
 	takeTurn(_first, _last);
-	takeTurn(_last, _first);
+
+	if (!_last->hasLost())
+		takeTurn(_last, _first);
 
 	// show player1's boards
 	std::cout << std::endl << _player2->boardToString(true) << std::endl;
@@ -147,7 +171,30 @@ void Game::takeTurn(Player* aggressor, Player* defender)
 	else
 		takeAiTurn(aggressor, defender);
 }
-void Game::takeAiTurn(Player* aggressor, Player* defender)
-{																	/* TODO: implement */
+void Game::takeAiTurn(Player* ai, Player* player)
+{
+	int x = rand() % 10,
+		y = rand() % 10;
 
+	while (player->getBoard().hasBeenShot({ x, y }))
+	{
+		x = rand() % 10;
+		y = rand() % 10;
+	}
+
+	Shot shot(x, y);
+
+	std::cout << ai->getName() << " shot a missle at (" << x << ", " << y << ")." << std::endl;
+
+	if (player->isHit(shot))
+	{
+		Ship ship;
+		if (player->getBoard().tryGetShip(Position::Coordinates(x, y), ship))
+			std::cout << "Your " << ship.getName() << " was HIT!" << std::endl;
+		
+		if (ship.isSunk())
+		{
+			std::cout << "Your " << ship.getName() << " has SUNK!" << std::endl;
+		}
+	}
 }
