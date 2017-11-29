@@ -20,9 +20,9 @@ int main()
 		}
 
 		// ouput results
-		std::cout << winner.getName() << " has won!!!" << std::endl;
+		std::cout << std::endl << winner.getName() << " has won!!!" << std::endl;
 
-		std::cout << "Would you like to play again?" << std::endl;
+		std::cout << std::endl << "Would you like to play again?" << std::endl;
 	} while ((std::cin >> again) && (again == 'Y' || again == 'y'));
 }
 

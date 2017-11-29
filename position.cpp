@@ -23,16 +23,26 @@ Position::Coordinates::Coordinates(std::string coordinates)
 	else
 	{
 		char x = coordinates[0];
-		int y = std::stoi(coordinates.substr(1, coordinates.size() - 1));
+		int y;
 
-		if (x >= 65 && x <= 90) // is uppercase
-			X = x - 65;
-		else if (x >= 97 && x <= 122) // is lowercase
-			X = x - 97;
-		else
+		try
+		{
+			y = std::stoi(coordinates.substr(1, coordinates.size() - 1));
+
+			if (x >= 65 && x <= 90) // is uppercase
+				X = x - 65;
+			else if (x >= 97 && x <= 122) // is lowercase
+				X = x - 97;
+			else
+				X = -1;
+
+			Y = y - 1;
+		}
+		catch (...) 
+		{
+			Y = -1;
 			X = -1;
-
-		Y = y - 1;
+		}
 	}
 }
 bool Position::Coordinates::operator==(const Position::Coordinates other)
