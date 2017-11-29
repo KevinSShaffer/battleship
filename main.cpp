@@ -11,26 +11,12 @@ int main()
 	do
 	{
 		Player winner;
+		Game game = createGame("ships/player.csv", "ships/ai.csv");
 
-		try
+		// loop until the game has a winner
+		while (!game.hasWinner(winner))
 		{
-			Game game = createGame("ships/player.csv", "ships/ai.csv");
-
-			// loop until the game has a winner
-			while (!game.hasWinner(winner))
-			{
-				game.takeTurn();
-			}
-		}
-		catch (...)
-		{
-			Game game;
-
-			// loop until the game has a winner
-			while (!game.hasWinner(winner))
-			{
-				game.takeTurn();
-			}
+			game.takeTurn();
 		}
 
 		// ouput results
@@ -50,11 +36,13 @@ Game createGame(std::string playerPath, std::string aiPath)
 	{
 		std::cout << "Unable to create game from text files." << std::endl 
 			<< "Issue with line: " << ex.GetCsvLine() << std::endl;
-		throw ex;
+
+		return Game();
 	}
 	catch (...)
 	{
 		std::cout << "Unable to create game from text files." << std::endl;
-		throw;
+
+		return Game();
 	}
 }
