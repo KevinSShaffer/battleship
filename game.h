@@ -9,11 +9,11 @@ class Game
 {
 private:
 	const static int NUM_SHIPS = 5;
-	const ShipToken _shipNames[NUM_SHIPS] = { "Carrier", 5, 'r',
-		"Battleship", 4, 'b', 
-		"Cruiser", 3, 'c',
-		"Submarine", 3, 'u',
-		"Destroyer", 2, 'd' };
+	const ShipToken _shipNames[NUM_SHIPS] = { { "Carrier", 5, 'r' },
+		{ "Battleship", 4, 'b' }, 
+		{ "Cruiser", 3, 'c' },
+		{ "Submarine", 3, 'u' },
+		{ "Destroyer", 2, 'd' } };
 	Player* _player1;
 	Player* _player2;
 	Player* _first;
