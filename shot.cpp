@@ -19,9 +19,9 @@ void Shot::makeMiss()
 }
 std::string Shot::toString() const
 {
-	std::string str;
-	str += (char)(X + 65);
-	str += (char)(Y + 49);
+	std::ostringstream sstream;
+	sstream << (char)(X + 65);
+	sstream << (Y + 1);
 
-	return str;
+	return sstream.str();
 }

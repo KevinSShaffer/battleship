@@ -1,6 +1,7 @@
 #ifndef SHOT_H
 #define SHOT_H
 #include <string>
+#include <sstream>
 #include "position.h"
 
 class Shot : public Position::Coordinates

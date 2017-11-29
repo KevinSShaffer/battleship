@@ -202,8 +202,6 @@ void Game::takeTurn(Player* aggressor, Player* defender)
 	if (aggressor->isHuman())
 	{
 		std::cout << std::endl << "Place a shot:" << std::endl << std::endl;
-		/*int x = getInput("Enter the x coordinate: ");
-		int y = getInput("Enter the y coordinate: ");*/
 
 		std::string input;
 		do
