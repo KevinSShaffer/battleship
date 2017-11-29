@@ -10,13 +10,27 @@ int main()
 	char again;
 	do
 	{
-		Game game = createGame("ships/player.csv", "ships/ai.csv");
 		Player winner;
 
-		// loop until the game has a winner
-		while (!game.hasWinner(winner))
+		try
 		{
-			game.takeTurn();
+			Game game = createGame("ships/player.csv", "ships/ai.csv");
+
+			// loop until the game has a winner
+			while (!game.hasWinner(winner))
+			{
+				game.takeTurn();
+			}
+		}
+		catch (...)
+		{
+			Game game;
+
+			// loop until the game has a winner
+			while (!game.hasWinner(winner))
+			{
+				game.takeTurn();
+			}
 		}
 
 		// ouput results
