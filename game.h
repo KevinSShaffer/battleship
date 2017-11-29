@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "player.h"
+#include "csv_reader.h"
 
 class Game
 {

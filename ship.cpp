@@ -8,11 +8,22 @@
 ********************************************************************/
 
 #include "ship.h"
-#include "position.h"
 
 Ship::Ship() :
 	_coordinates(-1, -1)
 {
+}
+Ship::Ship(std::string csvLine) :
+	_coordinates(-1, -1), _hits(0)
+{
+	words values = str_func::split(csvLine, ',');
+
+	if (values.size() != 3 ||
+		!tryParse(values[0], _token) ||
+		!tryParse(values[2], _orientation))
+		throw UnableToInitialize(csvLine);
+	else
+		_coordinates = Position::Coordinates(values[1]);
 }
 Ship::Ship(ShipToken shipToken, Position::Coordinates coordinates, Position::Orientation orientation) :
 	_token(shipToken), _coordinates(coordinates), _orientation(orientation), _hits(0)
@@ -97,4 +108,52 @@ bool Ship::isCollision(Ship otherShip) const
 char Ship::getIdentifier() const
 {
 	return _token.identifier;
+}
+bool Ship::tryParse(std::string word, ShipToken& token)
+{
+	word = str_func::toLower(word);
+
+	if (word == "carrier")
+	{
+		token = { "Carrier", 5, 'r' };
+	}
+	else if (word == "battleship")
+	{
+		token = { "Battleship", 4, 'b' };
+	}
+	else if (word == "cruiser")
+	{
+		token = { "Cruiser", 3, 'c' };
+	}
+	else if (word == "submarine")
+	{
+		token = { "Submarine", 3, 'u' };
+	}
+	else if (word == "destroyer")
+	{
+		token = { "Destroyer", 2, 'd' };
+	}
+	else
+		return false;
+
+	return true;
+}
+bool Ship::tryParse(std::string word, Position::Orientation& orientation)
+{
+	if (word.size() > 0)
+	{
+		switch (str_func::toLower(word)[0])
+		{
+		case 'h':
+			orientation = Position::Orientation::HORIZONTAL;
+			return true;
+		case 'v':
+			orientation = Position::Orientation::VERTICAL;
+			return true;
+		default:
+			return false;
+		}
+	}
+	else
+		return false;
 }

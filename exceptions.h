@@ -2,10 +2,6 @@
 #define EXCEPTIONS_H
 #include <string>
 
-class UnableToReadFile
-{
-};
-
 class UnableToInitialize
 {
 public:

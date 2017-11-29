@@ -44,7 +44,7 @@ bool Player::isHit(Shot shot)
 }
 std::string Player::boardToString(bool forOpponent)
 {
-	std::string output = _board.getGrid().toString();
+	std::string output = _board/*.getGrid()*/.toString();
 
 	// hide ship tokens as water
 	if (forOpponent)

@@ -11,6 +11,8 @@
 #include <string>
 #include <vector>
 #include "position.h"
+#include "exceptions.h"
+#include "str_func.h"
 
 struct ShipToken
 {
@@ -22,6 +24,7 @@ class Ship
 {
 public:
 	Ship();
+	Ship(std::string);
 	Ship(ShipToken, Position::Coordinates, Position::Orientation);
 	Position::Coordinates GetCoordinates() const;
 	void setCoordinates(Position::Coordinates);
@@ -39,5 +42,7 @@ private:
 	Position::Coordinates _coordinates;
 	Position::Orientation _orientation;
 	unsigned int _hits;
+	bool tryParse(std::string, ShipToken&);
+	bool tryParse(std::string, Position::Orientation&);
 };
 #endif

@@ -1,7 +1,7 @@
 
 #include "csv_reader.h"
 
-std::vector<std::string> CsvReader::readLines(std::string filePath, bool omitHeader)
+csv_lines CsvReader::readLines(std::string filePath, bool omitHeader)
 {
 	std::vector<std::string> lines;
 	std::string line;
@@ -10,7 +10,10 @@ std::vector<std::string> CsvReader::readLines(std::string filePath, bool omitHea
 
 	while (std::getline(fs, line))
 	{
-		lines.push_back(line);
+		if (omitHeader)
+			omitHeader = false;
+		else
+			lines.push_back(line);
 	}
 
 	return lines;

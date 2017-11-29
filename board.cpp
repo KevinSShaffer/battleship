@@ -120,3 +120,51 @@ bool Board::hasBeenShot(Position::Coordinates coordinates) const
 	return _grid[coordinates.Y][coordinates.X] == _hit ||
 		_grid[coordinates.Y][coordinates.X] == _miss;
 }
+bool Board::isValid(std::string s) const
+{
+	Position::Coordinates coordinates(s);
+	return isValid(coordinates);
+}
+bool Board::isValid(int x, int y) const
+{
+	Position::Coordinates coordinates(x, y);
+	return isValid(coordinates);
+}
+bool Board::isValid(Position::Coordinates coordinates) const
+{
+	return coordinates.X >= 0 && coordinates.X < _grid.getColumns() &&
+		coordinates.Y >= 0 && coordinates.Y < _grid.getRows();
+}
+std::string Board::toString()
+{
+	std::ostringstream sstream;
+	int padding = (_grid.getRows() / 10) + 1;
+
+	for (int j = 0; j < padding; j++)
+		sstream << " ";
+
+	for (int i = 0, column = 'A'; i < _grid.getColumns(); i++, column++)
+	{
+		sstream << " " << (char)column;
+	}
+
+	std::string output = "\n" + _grid.toString();
+
+	for (int i = 0, row = 1; i < output.size(); i++)
+	{
+		sstream << output[i];
+
+		if (output[i] == '\n')
+		{
+			sstream << row;
+
+			// add padding
+			for (int j = row / 10; j < padding; j++)
+				sstream << " ";
+
+			row++;
+		}
+	}
+
+	return sstream.str();
+}

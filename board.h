@@ -1,6 +1,8 @@
 #ifndef BOARD_H
 #define BOARD_H
 #include <vector>
+#include <string>
+#include <sstream> 
 #include "grid.h"
 #include "shot.h"
 #include "ship.h"
@@ -26,5 +28,9 @@ public:
 	bool placeShip(const Ship);
 	bool tryGetShip(Position::Coordinates, Ship&) const;
 	bool hasBeenShot(Position::Coordinates) const;
+	bool isValid(std::string) const;
+	bool isValid(int, int) const;
+	bool isValid(Position::Coordinates) const;
+	std::string toString();
 };
 #endif

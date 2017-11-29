@@ -58,6 +58,58 @@ Game::Game()
 }
 Game::Game(std::string playerCsv, std::string aiCsv)
 {
+	srand(time(0));
+
+	// create player
+	std::string name;
+
+	do
+	{
+		std::cout << "Input your name: " << std::endl;
+	} while (!(std::cin >> name));
+
+	_player1 = new Player(name);
+
+	csv_lines ships = CsvReader::readLines(playerCsv, true);
+
+	if (ships.size() != NUM_SHIPS)
+		throw UnableToInitialize();
+
+	// add player's ships
+	for (int i = 0; i < NUM_SHIPS; i++)
+	{
+		Ship ship(ships[i]);
+
+		if (!_player1->placeShip(ship))
+			throw UnableToInitialize(ships[i]);
+	}
+
+	// create ai
+	_player2 = new Player("HAL");
+	_player2->makeAI();
+
+	// create ai ships
+	ships = CsvReader::readLines(aiCsv, true);
+
+	if (ships.size() != NUM_SHIPS)
+		throw UnableToInitialize();
+
+	// add player's ships
+	for (int i = 0; i < NUM_SHIPS; i++)
+	{
+		Ship ship(ships[i]);
+
+		if (!_player2->placeShip(ship))
+			throw UnableToInitialize(ships[i]);
+	}
+
+	// determine who goes first
+	int randBit = rand() % 2;
+
+	_first = randBit == 0 ? _player1 : _player2;
+	_last = randBit == 1 ? _player1 : _player2;
+
+	std::cout << std::endl << _first->getName() << " goes first." << std::endl;
 }
 Game::Game(Player* player1, Player* player2) :
 	_player1(player1), _player2(player2)
@@ -150,19 +202,27 @@ void Game::takeTurn(Player* aggressor, Player* defender)
 	if (aggressor->isHuman())
 	{
 		std::cout << std::endl << "Place a shot:" << std::endl << std::endl;
-		int x = getInput("Enter the x coordinate: ");
-		int y = getInput("Enter the y coordinate: ");
+		/*int x = getInput("Enter the x coordinate: ");
+		int y = getInput("Enter the y coordinate: ");*/
+
+		std::string input;
+		do
+		{
+			std::cout << "Input your shot: " << std::endl;
+		} while (!(std::cin >> input) || !defender->getBoard().isValid(input));
+
+		Position::Coordinates coordinates(input);
 
 		// fire shot
 		std::cout << std::endl << "That was a ";
 
-		Shot shot(x, y);
+		Shot shot(coordinates.X, coordinates.Y);
 		if (defender->isHit(shot))
 		{
 			std::cout << "HIT!" << std::endl;
 
 			Ship ship;
-			if (defender->getBoard().tryGetShip(Position::Coordinates(x, y), ship) &&
+			if (defender->getBoard().tryGetShip(coordinates, ship) &&
 				ship.isSunk())
 			{
 				std::cout << "You sunk their " << ship.getName() << "!" << std::endl;
@@ -187,7 +247,8 @@ void Game::takeAiTurn(Player* ai, Player* player)
 
 	Shot shot(x, y);
 
-	std::cout << ai->getName() << " shot a missle at (" << x << ", " << y << ")." << std::endl;
+	std::cout << ai->getName() << " shot a missle at (" << 
+		shot.toString() << ")." << std::endl;
 
 	if (player->isHit(shot))
 	{
