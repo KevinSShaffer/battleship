@@ -10,7 +10,7 @@ int main()
 	char again;
 	do
 	{
-		Game game = createGame("C:\\Projects\\OOP Class\\battleship\\player_ships.csv", "C:\\Projects\\OOP Class\\battleship\\ai_ships.csv");
+		Game game = createGame("ships/player.csv", "ships/ai.csv");
 		Player winner;
 
 		// loop until the game has a winner

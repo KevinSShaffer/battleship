@@ -22,9 +22,6 @@ the game takes turns until one of the players has lost.
    Source files
 *******************************************************
 
-Name: ai_ships.csv
-  Contains starting position of ai ships.
-
 Name: board.cpp
   Implementation for the Board class methods.
 
@@ -69,9 +66,6 @@ Name: player.cpp
 
 Name: player.h
   Declaration for the Player class.
-
-Name: player_ships.csv
-  Contains starting positions for the player's ships.
 
 Name: position.cpp
   Implementation for the classes in the Position
@@ -153,6 +147,10 @@ Name: str_func.cpp
       shot.h
       str_func.cpp
       str_func.h
+
+    Directory named 'ships' with the files:
+      ai.csv
+      player.csv
 
 2. Build the program.
     Change to the directory that contains the file by:
